@@ -1,0 +1,725 @@
+<!-- 
+  event.keyCode deprecated - use event.key instead
+    https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Arrays and Iteration</title>
+  <style>
+    * {
+      /* outline: 1px red dotted; */
+      font-family: sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: white;
+      font-size: 24px;
+      margin: 0;
+      padding: 0;
+    }
+
+    p {
+      max-width: 50rem;
+    }
+
+    a {
+      /* display: inline-block;
+      margin: 1rem 0 1rem 4rem; */
+    }
+
+    h3 {
+      text-align: left;
+    }
+
+    li {
+      margin: 1rem 0
+    }
+
+    main {
+      background-color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    header,
+    footer {
+      padding: 0.4em;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    td {
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .border {
+      border: 2px solid black;
+    }
+
+    .show {
+      display: inherit;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .text {
+      border-bottom: 2px solid grey;
+      margin-top: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    .grid {
+      display: inline-block;
+      width: 8rem;
+      height: 5rem;
+      margin: 0.5rem 0 0 0.5rem;
+      padding: 0 0.2rem;
+      font-size: 10px;
+      border: 2px solid grey;
+      overflow: hidden;
+      border-radius: 0.5rem;
+    }
+
+    .grid section {
+      display: none;
+    }
+
+    .grid-current {
+      background-color: pink;
+    }
+
+    .td {
+      border: 1px grey solid;
+    }
+
+    header {
+      font-size: 1.6em;
+      color: aliceblue;
+      background-color: blue;
+    }
+
+    footer {
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      color: aliceblue;
+      background-color: blue;
+    }
+
+    article {
+      margin: auto;
+      display: none;
+      padding: 0 2rem;
+      /* background-color: grey; */
+    }
+
+    article h1 {
+      text-align: center;
+      font-size: 1.5em;
+    }
+
+    section {
+      /* outline: 1px red dotted; */
+      padding-left: 1em;
+    }
+
+    #link-mark {
+      position: fixed;
+      top: 20%;
+      left: 10%;
+      padding: 2em;
+      width: 80%;
+      margin: 0 auto;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 1.5em;
+      background-color: aliceblue;
+      border: 1px solid black;
+    }
+
+    #link-mark a {
+      color: black;
+      text-decoration: none;
+    }
+
+    code {
+      font-family: monospace;
+      white-space: pre;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    Advanced Arrays and Iteration
+  </header>
+  <main>
+    <aside id="link-mark" class="hide"><a href="http://mark.brobyn.com/tutor/array">mark.brobyn.com/tutor/array</a>
+    </aside>
+    <article class="show">
+      <h1>Overview</h1>
+      <section>
+        <ul>
+          <li>Arrays, creation, properties, accessing</li>
+          <li>Iteration, methods</li>
+          <li>Examples - buttons, bullets, aliens, rotation, particles</li>
+        </ul>
+      </section>
+    </article>
+    <article>
+      <h1>Introduction</h1>
+      <section>
+        <ul>
+          <li>Example based</li>
+          <li>JavaScript centric (for p5js)</li>
+          <li>There could be mistakes</li>
+          <li>There should be more comments</li>
+          <li>Perhaps not eloquent (enough)</li>
+        </ul>
+      </section>
+    </article>
+    <article>
+      <h1>Examples</h1>
+      <section>
+        <ul>
+          <li>Only use JavaScript and programming concepts taught up to week 12</li>
+          <ul>
+            <li>No functions</li>
+          </ul>
+          <li>Uses p5js</li>
+          <li>Coding style/structure similar to that taught in course</li>
+          <li>Most examples built on player-move sketch&nbsp;</li>
+          <ul>
+            <li><a href="https://editor.p5js.org/mark.brobyn/sketches/aJdo5XD8c" target="_blank"
+                rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/aJdo5XD8c</a></li>
+          </ul>
+        </ul>
+      </section>
+    </article>
+    <article>
+      <h1>Arrays</h1>
+      <section>
+        <ul>
+          <li>An <strong>array </strong>is a <strong>data structure</strong> consisting of a collection of
+            <strong>elements</strong>, each identified by at least one array <strong>index</strong>.&nbsp;
+            <ul>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array"
+                  target="_blank"
+                  rel="noopener">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array</a>
+              </li>
+              <li><a href="https://www.w3schools.com/js/js_arrays.asp" target="_blank"
+                  rel="noopener">https://www.w3schools.com/js/js_arrays.asp</a></li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+    </article>
+    <article>
+      <h1>Array</h1>
+      <section>
+        <ul>
+          <li>Arrays can hold numbers, strings, and objects including other arrays:
+            <div>
+              <table>
+                <tbody>
+                  <tr>
+                    <td><strong>index</strong></td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td><strong>value</strong></td>
+                    <td class="td"><strong> 1</strong></td>
+                    <td class="td"><strong>a</strong></td>
+                    <td class="td"><strong>{a:1}</strong></td>
+                    <td class="td"><strong>[1,2,3]</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>type</strong></td>
+                    <td><strong>number</strong></td>
+                    <td><strong>string</strong></td>
+                    <td><strong>object</strong></td>
+                    <td><strong>array</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </article>
+
+    <article>
+      <h1>Creation</h1>
+      <section>
+        <p>var myArray // empty variable</p>
+        <p>myArray = [ ]&nbsp; &nbsp; // empty array</p>
+        <p>myArray = [ 1, 2, 3 ]&nbsp; &nbsp; // array of numbers</p>
+        <p>myArray = [ 'a', 'b', 'c'; ]&nbsp; &nbsp; // array of strings</p>
+        <p>myArray = [ { a : 1 } , { b : 2 } , { c : 3 } ]&nbsp; &nbsp; // array of objects</p>
+        <p>myArray = [ 1, 'a' , { 'b' : 2 } ]&nbsp; &nbsp; // array of mixed types</p>
+      </section>
+    </article>
+
+    <article>
+      <h1>Properties</h1>
+      <section>
+        <ul>
+          <li>myArray.length &nbsp; // length of array</li>
+          <li>First item has an index of 0</li>
+          <li>myArray[ myArray.length ] = x &nbsp; // quick way to add to end of array</li>
+          <li>myArray[ 1000 ] // valid but not good if array length is less</li>
+        </ul>
+      </section>
+    </article>
+
+    <article>
+      <h1>Output</h1>
+      <section>
+        <ul>
+          <li>myArray = [1,2,3]
+            <ul>
+              <li>myArray same as myArray.toString() with console.log()</li>
+              <li>myArray // 1,2,3</li>
+              <li>myArray.toString() // 1,2,3</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+    </article>
+
+
+    <article>
+      <h1>Accessing arrays</h1>
+      <section>
+        <p>myArray = [ 1, 'a' , { b : 2 } ]</p>
+        <p>myArray[0]&nbsp; &nbsp; //&nbsp; 1</p>
+        <p>myArray[1] //&nbsp; a</p>
+        <p>myArray[2] //&nbsp; { b : 2 }</p>
+        <p>myArray.at(-2)&nbsp; //&nbsp; a</p>
+        <p><a href="https://editor.p5js.org/mark.brobyn/sketches/q-6WnAkvh" target="_blank"
+            rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/q-6WnAkvh</a></p>
+      </section>
+    </article>
+
+
+    <article>
+      <h1>Iteration</h1>
+      <section>
+        <ul>
+          <li>Forwards<br>
+            &nbsp;&nbsp;for( i = 0; i &lt; myArray.length; i++ )</li>
+          <li>Backwards<br>
+            &nbsp;&nbsp;for( i = myArray.length-1; i &gt;= 0; i-- )</li>
+          <li>By step<br>
+            &nbsp;&nbsp;for( i = 0; i &lt; myArray.length; i+= 2 )</li>
+          <li>By range<br>
+            &nbsp;&nbsp;for( i = 4; i &lt; myArray.length - 4; i++ )</li>
+        </ul>
+      </section>
+    </article>
+
+
+    <article>
+      <h1>Nested Iteration</h1>
+      <section>
+        <code>
+    var myArray = [ [ 1, 2, 3 ] , [ 'a', 'b' ] ]
+    for( var i = 0; i &lt; myArray.length; i++)
+    {
+      for( var j = 0; j &lt; myArray[i].length; j++)
+      {
+        console.log( i, j ) // 0 0, 0 1, ...
+        console.log( myArray[ i ][ j ]) // 123ab
+      }
+    }
+        </code>
+        <p>
+          <a href="https://editor.p5js.org/mark.brobyn/sketches/eQNFv6hK1" target="_blank"
+            rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/eQNFv6hK1</a>
+        </p>
+      </section>
+    </article>
+
+
+    <article>
+      <h1>Array methods</h1>
+      <section>
+        <ul>
+          <li>JS arrays are objects</li>
+          <li>Array methods are built-in functions</li>
+          <li>Indicated by dot after array name followed by name followed by parentheses</li>
+          <ul>
+            <li><strong>myArray.reverse()</strong> - reverses array</li>
+          </ul>
+          <li>Have parameters to pass arguments&nbsp;</li>
+          <li>We will mainly use methods that affect the array rather than returning an array</li>
+        </ul>
+        <p><a href="https://www.w3schools.com/js/js_array_methods.asp" target="_blank"
+            rel="noopener">https://www.w3schools.com/js/js_array_methods.asp</a></p>
+        <p><a href="https://www.w3schools.com/js/js_function_parameters.asp" target="_blank"
+            rel="noopener">https://www.w3schools.com/js/js_function_parameters.asp</a></p>
+      </section>
+    </article>
+
+
+    <article>
+      <h1>p5js array methods - deprecated, use JavaScript</h1>
+      <section>
+        <ul>
+          <li>append() - push()</li>
+          <li>arrayCopy() - copyWithin()</li>
+          <li>concat() - concat()</li>
+          <li>reverse() - reverse()</li>
+          <li>shorten() - pop()</li>
+          <li>shuffle() - p5js only (will implement own version)</li>
+          <li>sort() - sort()</li>
+          <li>splice() - splice()</li>
+          <li>subset() - slice()</li>
+        </ul>
+      </section>
+    </article>
+
+    <article>
+      <h1>JavaScript array methods</h1>
+      <section>
+        <ul>
+          <li>push(), pop(), unshift(), shift()</li>
+          <li>splice()</li>
+          <li>fill(), reverse(), sort()</li>
+        </ul>
+      </section>
+    </article>
+
+    <article>
+      <h1>push(), pop(), unshift(), shift()</h1>
+      <section>
+        <ul>
+          <li>push() - add element to <strong>end </strong>of array</li>
+          <li>pop() - remove element from <strong>end </strong>of array</li>
+          <li>unshift() - add element to <strong>start </strong>of array</li>
+          <li>shift() - remove element from <strong>start </strong>of array</li>
+          <li>Use methods in combination to shift whole array left or right</li>
+        </ul>
+        <p><a href="https://editor.p5js.org/mark.brobyn/sketches/8Im0SMfvH" target="_blank"
+            rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/8Im0SMfvH</a></p>
+      </section>
+    </article>
+    
+    <article>
+      <h1>Button object UI</h1>
+      <section>
+        <ul>
+          <li>Create an object that is displayed and acts as a button</li>
+          <li>Apply a mouse over action that changes the cursor displayed</li>
+          <li>Create an array containing multiple button objects</li>
+          <li>Apply different actions to different buttons</li>
+        </ul>
+      </section>
+    </article>
+
+    
+    <article>
+      <h1>Button examples</h1>
+      <section>
+        <ul>
+          <li>button - object<br>
+            <a href="https://editor.p5js.org/mark.brobyn/sketches/gIaFrHFbl" target="_blank"
+              rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/gIaFrHFbl</a></li>
+          <li>button - object - array<br>
+            <a href="https://editor.p5js.org/mark.brobyn/sketches/HfjgS3dCh" target="_blank"
+              rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/HfjgS3dCh</a></li>
+
+          <li>button - object - array - actions<br>
+            <a href="https://editor.p5js.org/mark.brobyn/sketches/N7skCxvkg" target="_blank"
+              rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/N7skCxvkg</a></li>
+        </ul>
+      </section>
+    </article>
+      
+    <article>
+      <h1>Shuffle</h1>
+      <section>
+        <p>Array shuffle implementation</p>
+        <p><a href="https://editor.p5js.org/mark.brobyn/sketches/cnGyZSH4d" target="_blank" rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/cnGyZSH4d</a></p>
+      </section>
+    </article>  
+
+    <article>
+      <h1>splice()</h1>
+      <section>
+        <p><a href="https://editor.p5js.org/mark.brobyn/sketches/nCNq6diBI" target="_blank"
+            rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/nCNq6diBI</a></p>
+        <p><a href="https://www.w3schools.com/jsref/jsref_splice.asp" target="_blank"
+            rel="noopener">https://www.w3schools.com/jsref/jsref_splice.asp</a></p>
+      </section>
+    </article>
+    
+    <article>
+      <h1>Bullets</h1>
+      <section>
+      <ul>
+        <li>Player - move<br>
+          <a href="https://editor.p5js.org/mark.brobyn/sketches/aJdo5XD8c" target="_blank"
+            rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/aJdo5XD8c</a></li>
+        <li>Player - move - bullet - a<br>
+          <a href="https://editor.p5js.org/mark.brobyn/sketches/6sVTZHw2L" target="_blank"
+            rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/6sVTZHw2L</a></li>
+        <li>Player - move - bullet - b<br>
+          <a href="https://editor.p5js.org/mark.brobyn/sketches/vjeSlfOK5" target="_blank"
+            rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/vjeSlfOK5</a></li>
+        <li>Player - move - bullet - c - bullen<br>
+              <a href="https://editor.p5js.org/mark.brobyn/sketches/7ukeLrX87" target="_blank"
+          rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/7ukeLrX87</a></li>
+      </ul>
+      </section>
+    </article>
+
+    <article>
+      <h1>Aliens</h1>
+      <section>
+<ul>
+<li>Player - move - aliens<br>
+  <a href="https://editor.p5js.org/mark.brobyn/sketches/WPIgVN3Xf" target="_blank" rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/WPIgVN3Xf</a></li>
+<li>Player - move - aliens - hit<br>
+  <a href="https://editor.p5js.org/mark.brobyn/sketches/WiMNgjcxc" target="_blank" rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/WiMNgjcxc</a></li>
+</ul>
+      </section>
+    </article>
+
+    <article>
+      <h1>Player rotation with bullets</h1>
+      <section>
+      <ul>
+        <li>Player - move - bullet - rotate<br>
+          <a href="https://editor.p5js.org/mark.brobyn/sketches/8dtCPyga5" target="_blank"
+            rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/8dtCPyga5</a></li>
+        <li>Player - move - bullet - rotate - a<br>
+          <a href="https://editor.p5js.org/mark.brobyn/sketches/rmlLUirig" target="_blank"
+            rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/rmlLUirig</a></li>
+        <li>Player - move - bullet - rotate - b<br>
+        <a href="https://editor.p5js.org/mark.brobyn/sketches/WlaakBFKh" target="_blank"
+          rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/WlaakBFKh</a></li>
+      </ul>
+      </section>
+    </article>
+
+    <article>
+      <h1>Problems - rotation with bullets</h1>
+      <section>
+      <ul>
+        <li>Array - remove - splice<br>
+          <a href="https://editor.p5js.org/mark.brobyn/sketches/uXSD13jx9" target="_blank"
+            rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/uXSD13jx9</a></li>
+        <li>Player - move - bullet - rotate - c<br>
+          <a href="https://editor.p5js.org/mark.brobyn/sketches/DVKPVdMIS" target="_blank"
+            rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/DVKPVdMIS</a></li>
+        <li>Array - null - copy<br>
+          <a href="https://editor.p5js.org/mark.brobyn/sketches/Ge4mVYmUM" target="_blank"
+            rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/Ge4mVYmUM</a></li>
+        <li>Player - move - bullet - rotate - d<br>
+          <a href="https://editor.p5js.org/mark.brobyn/sketches/p-zH0u7uO" target="_blank"
+            rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/p-zH0u7uO</a></li>
+      </ul>
+      </section>
+    </article>
+
+    <article>
+      <h1>Particles</h1>
+      <section>
+        <p>Click for particles, g to toggle gravity</p>
+      <p><a href="https://editor.p5js.org/mark.brobyn/sketches/jtwGtl0tz" target="_blank"
+    rel="noopener">https://editor.p5js.org/mark.brobyn/sketches/jtwGtl0tz</a></p>
+      </section>
+    </article>
+
+    <article>
+      <h1>Game &amp; JavaScript links</h1>
+      <section>
+      <p><a href="https://js13kgames.com/" target="_blank" rel="noopener">https://js13kgames.com/</a>, <a href="https://www.youtube.com/watch?v=UiYhTcqx_wk" target="_blank"
+          rel="noopener">https://www.youtube.com/watch?v=UiYhTcqx_wk</a></p>
+      <p><a href="https://www.youtube.com/c/Frankslaboratory" target="_blank"
+          rel="noopener">https://www.youtube.com/c/Frankslaboratory</a></p>
+      <p><a href="https://kaboomjs.com/" target="_blank" rel="noopener">https://kaboomjs.com/</a>, <a href="https://phaser.io/" target="_blank" rel="noopener">https://phaser.io/</a>, <a href="https://pixijs.com/" target="_blank" rel="noopener">https://pixijs.com/</a></p>
+      <p><a href="https://godotengine.org/" target="_blank" rel="noopener">https://godotengine.org/</a></p>
+      <p><a href="http://gameprogrammingpatterns.com/contents.html" target="_blank"
+          rel="noopener">http://gameprogrammingpatterns.com/contents.html</a></p>
+      <p><a href="https://gafferongames.com/" target="_blank" rel="noopener">https://gafferongames.com/</a></p>
+      <p><a href="https://gamemechanicexplorer.com/" target="_blank" rel="noopener">https://gamemechanicexplorer.com/</a></p>
+      </section>
+    </article> 
+  </main>
+
+  <footer>
+    Mark Brobyn
+  </footer>
+  <script>
+    const slides = document.querySelectorAll('article');
+    const footer = document.querySelector('footer');
+    let PRESENT = true;
+    let OVERVIEW = false;
+    let TEXTVIEW = false;
+    // console.log(slides);
+    let slideCurrent = 0;
+    let slideTotal = slides.length;
+    let colNum = 0
+
+    addEventListener('keydown', (event) => {
+      console.log(event.key);
+      if (event.key === 'ArrowRight' && PRESENT) {
+        if (slideCurrent < slideTotal - 1) {
+          slides[slideCurrent].classList.toggle('show');
+          slides[++slideCurrent].classList.toggle('show');
+          console.log(slides[slideCurrent].classList);
+        }
+      }
+
+      if (event.key === 'ArrowLeft' && PRESENT) {
+        if (slideCurrent > 0) {
+          slides[slideCurrent].classList.toggle('show');
+          slides[--slideCurrent].classList.toggle('show');
+          console.log(slides[slideCurrent].classList);
+        }
+      }
+
+      if ((event.key === 'Enter' || event.key === 'g') && !TEXTVIEW) {
+        PRESENT = !PRESENT;
+        OVERVIEW = !OVERVIEW;
+        for (let i = 0; i < slideTotal; i++) {
+          slides[i].classList.toggle('show');
+          slides[i].classList.toggle('grid');
+        }
+        slides[slideCurrent].classList.toggle('show');
+        slides[slideCurrent].classList.toggle('grid-current');
+        if (OVERVIEW) calculateGridRowCol();
+      }
+
+      if (event.key === 'ArrowRight' && OVERVIEW) {
+        slides[slideCurrent].classList.toggle('grid-current');
+        if ((slideCurrent) >= slideTotal - 1) {
+          slideCurrent = 0;
+          slides[slideCurrent].classList.toggle('grid-current');
+          return
+        }
+        if ((slideCurrent + 1) % colNum === 0) {
+          slideCurrent -= colNum;
+        }
+        slides[++slideCurrent].classList.toggle('grid-current');
+      }
+
+      if (event.key === 'ArrowLeft' && OVERVIEW) {
+        slides[slideCurrent].classList.toggle('grid-current');
+        if ((slideCurrent) <= 0) {
+          slideCurrent = slideTotal - 1;
+          slides[slideCurrent].classList.toggle('grid-current');
+          return
+        }
+        if ((slideCurrent < (slideTotal - (slideTotal % colNum))) && (slideCurrent) % colNum === 0) {
+          slideCurrent += colNum;
+        }
+        slides[--slideCurrent].classList.toggle('grid-current');
+      }
+
+      if (event.key === 'ArrowDown' && OVERVIEW) {
+        slides[slideCurrent].classList.toggle('grid-current');
+        slideCurrent += colNum
+        if (slideCurrent >= slideTotal) slideCurrent -= colNum
+        slides[slideCurrent].classList.toggle('grid-current');
+      }
+
+      if (event.key === 'ArrowUp' && OVERVIEW) {
+        slides[slideCurrent].classList.toggle('grid-current');
+        slideCurrent -= colNum
+        if (slideCurrent < 0) slideCurrent += colNum
+        slides[slideCurrent].classList.toggle('grid-current');
+      }
+
+      if (event.key === '0' && PRESENT) {
+        slides[slideCurrent].classList.toggle('show');
+        slideCurrent = 0;
+        slides[slideCurrent].classList.toggle('show');
+      }
+
+      if (event.key === '0' && OVERVIEW) {
+        slides[slideCurrent].classList.toggle('grid-current');
+        slideCurrent = 0;
+        slides[slideCurrent].classList.toggle('grid-current');
+      }
+
+      if (event.key === 't' && PRESENT) {
+        TEXTVIEW = !TEXTVIEW;
+        PRESENT = !PRESENT;
+        footer.classList.toggle('hide');
+        slides[slideCurrent].classList.toggle('show');
+        for (var i = 0; i < slideTotal; i++) {
+          slides[i].classList.toggle('show');
+          slides[i].classList.toggle('text');
+        }
+      } else if (event.key === 't' && TEXTVIEW) {
+        TEXTVIEW = !TEXTVIEW;
+        PRESENT = !PRESENT;
+        footer.classList.toggle('hide');
+        for (var i = 0; i < slideTotal; i++) {
+          slides[i].classList.toggle('show');
+          slides[i].classList.toggle('text');
+        }
+        slides[slideCurrent].classList.toggle('show');
+      }
+
+      if (event.key === 'm') {
+        document.getElementById('link-mark').classList.toggle('hide')
+      }
+
+
+    });
+
+    addEventListener('resize', calculateGridRowCol);
+
+    function calculateGridRowCol() {
+      var cols = 0
+      var rows = 0
+      var colY = 0
+      var lastRowCols = 0
+      var ySet = false
+      // console.log(cols)
+      // console.log(slideTotal)
+      colCounter: for (cols = 0; cols < slideTotal; cols++) {
+        // console.log(cols)
+        if (ySet) {
+          if (colY != slides[cols].offsetTop) {
+            break colCounter;
+          }
+        } else {
+          colY = slides[cols].offsetTop
+          ySet = true
+        }
+        // console.log(slides[cols].offsetTop);
+      }
+      rows = Math.ceil(slideTotal / cols)
+      lastRowCols = slideTotal % cols
+      colNum = cols
+      // console.log("cols: " + cols);
+      // console.log("rows: " + rows);
+      // console.log("lastRowCols: " + lastRowCols);
+    }
+
+    window.dispatchEvent(new KeyboardEvent('keydown', {
+      'key': 't'
+    }))
+  </script>
+</body>
+
+</html>
